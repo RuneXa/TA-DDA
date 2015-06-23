@@ -1,0 +1,9 @@
+import java.util.Map;
+
+String text = "the quick brown fox jumps fox fox over the lazy dog brown";
+String delimiters = ",.?!;:[]- ";
+println(text);
+
+  String[] rawtext = loadStrings ("test.txt");
+  String everything = join(rawtext, " ");
+  String[] keys = everything.split(delimiters);  
