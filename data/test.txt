@@ -1,3 +1,5 @@
 ini text untuk mencari kata considers dalam text ini.
 ini buat cari kata considers dalam tanda baca .,?!;:[]-.considers.,?!;:[]-
 ini buat eof.
+InI tExT uNtUk
+iNi tExT

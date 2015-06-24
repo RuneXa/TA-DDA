@@ -1,4 +1,6 @@
 import java.util.*;
+import java.io.*;
+
 
 String[] text;
 Map<String, Integer> map = new HashMap<String, Integer>();
@@ -10,6 +12,7 @@ void setup() {
   //textSize(32);
   String[] rawtext = loadStrings ("test.txt");
   String everything = join(rawtext, " ");
+  everything = everything.toLowerCase();
   text = splitTokens(everything, delimiters);
   
   for (String w : text) {    
@@ -27,6 +30,7 @@ void setup() {
          print(me.getKey() + ": ");
          println(me.getValue());
          String nama = me.getKey().toString();
+         //nama = nama.toLowerCase();
          Integer jumlah =(Integer) me.getValue();
          fill(0);
          text(nama,10,10*j*2);
