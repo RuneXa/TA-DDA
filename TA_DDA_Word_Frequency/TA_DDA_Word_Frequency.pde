@@ -5,41 +5,65 @@ import java.io.*;
 String[] text;
 Map<String, Integer> map = new HashMap<String, Integer>();
 String delimiters = ",.?!;:[]- ";
- 
+String textFile; 
+
 void setup() {
-  size (400, 400);     
-  //textSize(32);
-  String[] rawtext = loadStrings ("test.txt");
-  //String[] rawtext = loadStrings ("http://runexa.tumblr.com/post/111177700198/about-tipe-tipe-ancaman-keamanan-komputer");
-  String everything = join(rawtext, " ");
-  everything = everything.toLowerCase();
-  text = splitTokens(everything, delimiters);
-  
-  for (String w : text) {    
-    Integer n = map.get(w);
-        n = (n == null) ? 1 : ++n;
-        map.put(w, n);
-    }
-   
-   Map<String, Integer> sortedMap = sortByValue(map);
-   int j =1; //loop iterator index
-      Set set = sortedMap.entrySet();
-      Iterator i = set.iterator();
-      while(i.hasNext()) {
-         Map.Entry me = (Map.Entry)i.next();
-         print(me.getKey() + ": ");
-         println(me.getValue());
-         String nama = me.getKey().toString();
-         Integer jumlah =(Integer) me.getValue();
-         drawChart(j,nama,jumlah);
-         j++;
-         if(j==11)
-         {
-          break; //mencari 10 kata terbanyak 
-         }
-      }
+  size (400, 400);
+  background(255);
+  selectInput("Pilih file text yang ingin diproses:", "setFile");   
 }
- 
+
+void setFile(File selected)
+{
+ if(selected == null){
+  exit();
+ } 
+ else
+ {
+  textFile = selected.getAbsolutePath();
+  print(textFile + "\n"); 
+ }
+}
+
+void draw() {
+  //textSize(32);
+  if(textFile!=null){
+    noLoop();
+    String[] rawtext = loadStrings (textFile);
+    //String[] rawtext = loadStrings ("test.txt");
+    //String[] rawtext = loadStrings ("http://runexa.tumblr.com/post/111177700198/about-tipe-tipe-ancaman-keamanan-komputer");
+    String everything = join(rawtext, " ");
+    everything = everything.toLowerCase();
+    text = splitTokens(everything, delimiters);
+    
+    for (String w : text) {    
+      Integer n = map.get(w);
+          n = (n == null) ? 1 : ++n;
+          map.put(w, n);
+      }
+     
+     background(255); //cls
+     
+     Map<String, Integer> sortedMap = sortByValue(map);
+     int j =1; //loop iterator index
+        Set set = sortedMap.entrySet();
+        Iterator i = set.iterator();
+        while(i.hasNext()) {
+           Map.Entry me = (Map.Entry)i.next();
+           print(me.getKey() + ": ");
+           println(me.getValue());
+           String nama = me.getKey().toString();
+           Integer jumlah =(Integer) me.getValue();
+           drawChart(j,nama,jumlah);
+           j++;
+           if(j==11)
+           {
+            break; //mencari 10 kata terbanyak 
+           }
+        }  
+  }
+}
+
 void drawChart(int j, String nama, int jumlah) {
    boolean over30 = false;
    int jumlahConst;
@@ -66,11 +90,6 @@ void drawChart(int j, String nama, int jumlah) {
    text(jumlah,82.5,10*j*2);   
 } 
  
-
-void draw() {
-    
-}
-
 public static Map sortByValue(Map unsortMap) { //compare o2 ke o1 biar menurun  
   List list = new LinkedList(unsortMap.entrySet());
  
