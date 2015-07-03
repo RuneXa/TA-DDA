@@ -10,7 +10,7 @@ String textFile;
 void setup() {
   size (400, 400);
   background(255);
-  selectInput("Pilih file text yang ingin diproses:", "setFile");   
+  selectInput("Pilih file text yang ingin diproses", "setFile");   
 }
 
 void setFile(File selected)
@@ -43,6 +43,8 @@ void draw() {
       }
      
      background(255); //cls
+      
+     drawButton();
      
      Map<String, Integer> sortedMap = sortByValue(map);
      int j =1; //loop iterator index
@@ -64,6 +66,43 @@ void draw() {
   }
 }
 
+void mousePressed() {
+  if (mouseX > 20 && mouseX < 100 && mouseY > 340 && mouseY < 380) { //button refresh
+    text = null;
+    map.clear();
+    map = new HashMap<String, Integer>();
+    redraw(); 
+  }
+ 
+  if (mouseX > 280 && mouseX < 380 && mouseY > 340 && mouseY < 380) { //button browse
+    textFile = null;    
+    text = null;
+    map.clear();
+    map = new HashMap<String, Integer>();
+    selectInput("Pilih file text yang ingin diproses", "setFile");
+    redraw();  
+  }
+  
+}
+
+
+void drawButton()
+{
+ //button refresh
+ fill(255);
+ rect(20,340,100,40);
+ fill(0);
+ text("Refresh",50,360);
+ 
+ //button browse File
+ fill(255);
+ rect(280,340,100,40);
+ fill(0);
+ text("Browse",310,360);
+ 
+}
+
+
 void drawChart(int j, String nama, int jumlah) {
    boolean over30 = false;
    int jumlahConst;
@@ -77,7 +116,9 @@ void drawChart(int j, String nama, int jumlah) {
    {
     jumlahConst = jumlah; 
    }
- 
+   
+   pushMatrix();
+   translate(0,height/2 - 80);
    fill(0);
    rect(80,20*j-10,300,10); //box hitam
    float mapJumlah = jumlahConst * 1 / 30;
@@ -87,8 +128,14 @@ void drawChart(int j, String nama, int jumlah) {
    fill(0);
 
    text(nama,10,10*j*2);
-   text(jumlah,82.5,10*j*2);   
+   text(jumlah,82.5,10*j*2);
+   popMatrix();   
 } 
+
+
+
+
+
  
 public static Map sortByValue(Map unsortMap) { //compare o2 ke o1 biar menurun  
   List list = new LinkedList(unsortMap.entrySet());
