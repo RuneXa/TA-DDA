@@ -6,6 +6,7 @@ String[] text;
 Map<String, Integer> map = new HashMap<String, Integer>();
 String delimiters = ",.?!;:[]- ";
 String textFile; 
+String Filename;
 
 void setup() {
   size (400, 400);
@@ -21,6 +22,8 @@ void setFile(File selected)
  else
  {
   textFile = selected.getAbsolutePath();
+  Filename = selected.getName();
+  print(Filename + "\n"); 
   print(textFile + "\n"); 
  }
 }
@@ -43,8 +46,10 @@ void draw() {
       }
      
      background(255); //cls
-      
+     
+     drawHeader(); 
      drawButton();
+     
      
      Map<String, Integer> sortedMap = sortByValue(map);
      int j =1; //loop iterator index
@@ -83,6 +88,22 @@ void mousePressed() {
     redraw();  
   }
   
+}
+
+void drawHeader()
+{
+ fill(0);
+ rectMode(CENTER);
+ textAlign(CENTER, CENTER);
+ textSize(18);
+ text("Word Count Program\nMade by : Richie,Nelvson,Abdiel",width/2,height/2-175,400,100);
+ line(0,55,width,55);
+ textSize(32);
+ textAlign(CENTER, CENTER);
+ text(Filename,width/2,height/2-100,400,50);
+ textSize(12);
+ textAlign(LEFT);
+ rectMode(CORNER);
 }
 
 
