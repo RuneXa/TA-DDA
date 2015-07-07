@@ -34,7 +34,6 @@ void draw() {
     noLoop();
     jumlahTextTotal = 0;
     String[] rawtext = loadStrings (textFile);
-    //String[] rawtext = loadStrings ("http://runexa.tumblr.com/post/111177700198/about-tipe-tipe-ancaman-keamanan-komputer");
     String everything = join(rawtext, " ");
     everything = everything.toLowerCase();
     text = splitTokens(everything, delimiters);
@@ -50,7 +49,6 @@ void draw() {
      
      drawHeader(); 
      drawButton();
-     
      
      Map<String, Integer> sortedMap = sortByValue(map);
      int j =1; //loop iterator index
