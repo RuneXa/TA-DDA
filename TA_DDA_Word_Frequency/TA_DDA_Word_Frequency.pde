@@ -7,6 +7,7 @@ Map<String, Integer> map = new HashMap<String, Integer>();
 String delimiters = ",.?!;:[]- ";
 String textFile; 
 String Filename;
+int jumlahTextTotal;
 
 void setup() {
   size (400, 400);
@@ -29,17 +30,17 @@ void setFile(File selected)
 }
 
 void draw() {
-  //textSize(32);
   if(textFile!=null){
     noLoop();
+    jumlahTextTotal = 0;
     String[] rawtext = loadStrings (textFile);
-    //String[] rawtext = loadStrings ("test.txt");
     //String[] rawtext = loadStrings ("http://runexa.tumblr.com/post/111177700198/about-tipe-tipe-ancaman-keamanan-komputer");
     String everything = join(rawtext, " ");
     everything = everything.toLowerCase();
     text = splitTokens(everything, delimiters);
     
     for (String w : text) {    
+      jumlahTextTotal++;
       Integer n = map.get(w);
           n = (n == null) ? 1 : ++n;
           map.put(w, n);
@@ -127,6 +128,7 @@ void drawButton()
 void drawChart(int j, String nama, int jumlah) {
    boolean over30 = false;
    int jumlahConst;
+   print("\n" + (jumlah*1.0/jumlahTextTotal*1.0) *100 + "\n");
    fill(0);
    if(jumlah > 30)
    {
@@ -142,21 +144,22 @@ void drawChart(int j, String nama, int jumlah) {
    translate(0,height/2 - 80);
    fill(0);
    rect(80,20*j-10,300,10); //box hitam
-   float mapJumlah = jumlahConst * 1 / 30;
-   float persenJumlah = 255 * mapJumlah;
-   fill(persenJumlah,255 - persenJumlah,0);
+   float persenJumlah = (jumlah*1.0/jumlahTextTotal*1.0) * 100;
+   if (jumlahConst <= 5) { fill(10,240,10);}
+   else if (jumlahConst <= 15) {fill(240,240,10);}
+   else if (jumlahConst < 25) {fill(250,100,10);}
+   else if (jumlahConst >=25) {fill(240,10,10);}
    rect(80,20*j-10,10*jumlahConst,10);
    fill(0);
 
    text(nama,10,10*j*2);
    text(jumlah,82.5,10*j*2);
+   fill(255);
+   text(persenJumlah,310,10*j*2);
+   text("%",365,10*j*2);
+   fill(0);
    popMatrix();   
 } 
-
-
-
-
-
  
 public static Map sortByValue(Map unsortMap) { //compare o2 ke o1 biar menurun  
   List list = new LinkedList(unsortMap.entrySet());
